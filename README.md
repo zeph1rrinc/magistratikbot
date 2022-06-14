@@ -21,3 +21,9 @@
 ## 1.0.4
 
 - Code refactoring
+
+## 1.0.5
+
+- Logging refactoring
+- Repair commands
+- 

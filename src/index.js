@@ -14,10 +14,6 @@ bot.start((ctx) => {
 
 bot.help((ctx) => controller.Help(ctx))
 
-bot.hears(['Рейтинг', 'рейтинг'], async (ctx) => {
-    await controller.GetRating(ctx)
-})
-
 bot.on('message', async (ctx) => {
     await controller.OnMessage(ctx)
 })

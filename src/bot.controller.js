@@ -59,8 +59,8 @@ class botController
     async OnMessage(ctx) {
         this.Log(ctx)
         const message = ctx.message.text
-        if (message.toLowerCase().indexOf('рейтинг') !== -1) {
-            const messageArray = message.split(' ')
+        if (message.trim().toLowerCase().indexOf('рейтинг') !== -1) {
+            const messageArray = message.trim().split(' ').filter(word => word.length > 0)
             const nickname = messageArray.slice(1, messageArray.length + 1).join(' ')
             await this.GetRating(ctx, nickname)
         } else {

@@ -8,13 +8,17 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     env:
-      tag: ${{ github.repository }}:${{ github.event.commits[0].message }}
+      TAG: ${{ github.event.commits[0].message }}
     steps:
+      - name: downcase REPO
+        run: |
+          echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
       - name: Check-out repository
         uses: actions/checkout@v2
 
       - name: Build the Docker image
-        run: docker build -t $tag .
+        run: docker build -t $REPO:$TAG .
 
       - name: Check images
         run: docker images | grep ${{github.event.commits[0].message}}
@@ -23,4 +27,4 @@ jobs:
         run: docker login -u zeph1rr -p ${{secrets.DOCKER_HUB_PASS}}
 
       - name: Push into registry
-        run: docker push $tag
+        run: docker push $REPO:$TAG

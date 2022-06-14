@@ -1,11 +1,23 @@
+const logger = require("./logger");
+
 class botController
 {
     constructor(doc) {
         this.doc = doc
     }
 
+    Log (ctx) {
+        const data = {
+            chatId: ctx.message.chat.id,
+            username: ctx.message.from.username,
+            text: ctx.message.text
+        }
+        logger(process.env.LOG_PATH, data, true)
+    }
+
     Help(ctx) {
         ctx.reply(process.env.HELP)
+        this.Log(ctx)
     }
 
     async GetRows() {
@@ -16,6 +28,7 @@ class botController
 
     async GetRating(ctx, nickname='') {
         try{
+            this.Log(ctx)
             ctx.reply("Секундочку...")
             if (!nickname.length) {
                 const rows = await this.GetRows()
@@ -40,6 +53,18 @@ class botController
         } catch (e) {
             console.log(e.message)
             ctx.reply('Непредвиденная ошибка, попробуйте позже')
+        }
+    }
+
+    async OnMessage(ctx) {
+        this.Log(ctx)
+        const message = ctx.message.text
+        if (message.toLowerCase().indexOf('рейтинг') !== -1) {
+            const messageArray = message.split(' ')
+            const nickname = messageArray.slice(1, messageArray.length + 1).join(' ')
+            await this.GetRating(ctx, nickname)
+        } else {
+            ctx.reply('Я тебя не понимаю(')
         }
     }
 }

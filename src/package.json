@@ -14,8 +14,9 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "google-spreadsheet": "^3.3.0",
-    "telegraf": "^4.7.0",
-    "dotenv": "^16.0.0"
+    "node.date-time": "^1.2.2",
+    "telegraf": "^4.7.0"
   }
 }

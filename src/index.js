@@ -8,7 +8,6 @@ const doc = new GoogleSpreadsheet(process.env.DOC_SPREADSHEET)
 const controller = new BotController(doc)
 
 
-
 bot.start((ctx) => {
     ctx.reply(`Привет, ${ctx.message.from.first_name}!`)
     controller.Help(ctx)

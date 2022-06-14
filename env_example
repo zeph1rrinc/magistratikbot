@@ -5,6 +5,7 @@ HELP="Commands:
 2. Second command name - second command description"
 
 #GOOGLE ACCOUNT VALUES
+DOC_SPREADSHEET=doc_spreadsheet
 GOOGLE_SERVICE_ACCOUNT_EMAIL=google.service@account.email
 GOOGLE_PRIVATE_KEY="big
 private

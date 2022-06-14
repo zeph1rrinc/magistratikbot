@@ -58,7 +58,6 @@ class botController
 
     async OnMessage(ctx) {
         const message = ctx.message.text.trim()
-        console.log(message.toLowerCase().indexOf('рейтинг'))
         if (message.toLowerCase().indexOf('рейтинг') === 0) {
             const messageArray = message.split(' ').filter(word => word.length > 0)
             const nickname = messageArray.slice(1, messageArray.length + 1).join(' ')

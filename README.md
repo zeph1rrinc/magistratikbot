@@ -26,4 +26,8 @@
 
 - Logging refactoring
 - Repair commands
-- 
+
+
+## 1.0.6
+
+- Code refactoring

@@ -7,18 +7,20 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    env:
+      tag: ${{ github.repository }}:${{ github.event.commits[0].message }}
     steps:
       - name: Check-out repository
         uses: actions/checkout@v2
 
       - name: Build the Docker image
-        run: docker build -t zeph1rrio/magistratikbot:${{github.event.commits[0].message}} .
+        run: docker build -t $tag .
 
       - name: Check images
         run: docker images | grep ${{github.event.commits[0].message}}
 
       - name: Login in docker
-        run: docker login -u zeph1rrio -p ${{secrets.DOCKER_HUB_PASS}}
+        run: docker login -u zeph1rr -p ${{secrets.DOCKER_HUB_PASS}}
 
       - name: Push into registry
-        run: docker push zeph1rrio/magistratikbot:${{github.event.commits[0].message}}
+        run: docker push $tag

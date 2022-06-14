@@ -1,0 +1,24 @@
+name: BuildAndPushDockerImage
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check-out repository
+        uses: actions/checkout@v2
+
+      - name: Build the Docker image
+        run: docker build -t zeph1rrio/magistratikbot:${{github.event.commits[0].message}} .
+
+      - name: Check images
+        run: docker images | grep ${{github.event.commits[0].message}}
+
+      - name: Login in docker
+        run: docker login -u zeph1rrio -p ${{secrets.DOCKER_HUB_PASS}}
+
+      - name: Push into registry
+        run: docker push zeph1rrio/magistratikbot:${{github.event.commits[0].message}}

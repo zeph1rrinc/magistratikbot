@@ -1,0 +1,12 @@
+#BOT VALUES
+BOT_TOKEN=your_bot_token
+HELP="Commands:
+1. First command name - first command description
+2. Second command name - second command description"
+
+#GOOGLE ACCOUNT VALUES
+GOOGLE_SERVICE_ACCOUNT_EMAIL=google.service@account.email
+GOOGLE_PRIVATE_KEY="big
+private
+key"
+

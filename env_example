@@ -4,6 +4,9 @@ HELP="Commands:
 1. First command name - first command description
 2. Second command name - second command description"
 
+#APP ENV
+LOG_PATH=/var/log/app/
+
 #GOOGLE ACCOUNT VALUES
 DOC_SPREADSHEET=doc_spreadsheet
 GOOGLE_SERVICE_ACCOUNT_EMAIL=google.service@account.email

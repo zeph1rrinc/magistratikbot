@@ -9,3 +9,7 @@
 ## Changelog
 
 <hr>
+
+## 1.0.2
+
+- Added logging all texts

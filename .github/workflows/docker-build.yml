@@ -24,7 +24,7 @@ jobs:
         run: docker images | grep ${{github.event.commits[0].message}}
 
       - name: Login in docker
-        run: docker login -u zeph1rr -p ${{secrets.DOCKER_HUB_PASS}}
+        run: docker login -u ${{github.repository_owner}} -p ${{secrets.DOCKER_HUB_PASS}}
 
       - name: Push into registry
         run: docker push $REPO:$TAG

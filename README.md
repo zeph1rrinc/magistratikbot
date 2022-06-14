@@ -13,3 +13,11 @@
 ## 1.0.2
 
 - Added logging all texts
+
+## 1.0.3
+
+- Fix bug with spaces
+
+## 1.0.4
+
+- Code refactoring

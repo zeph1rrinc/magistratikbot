@@ -1,4 +1,4 @@
-const logger = require("zeph1rr-logger")(process.env.DEBUG_LEVEL, process.env.LOG_PATH);
+const logger = require('./logger')
 
 class botController
 {

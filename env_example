@@ -6,6 +6,7 @@ HELP="Commands:
 
 #APP ENV
 LOG_PATH=/var/log/app/
+DEBUG_LEVEL=full
 
 #GOOGLE ACCOUNT VALUES
 DOC_SPREADSHEET=doc_spreadsheet

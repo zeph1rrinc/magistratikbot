@@ -1,4 +1,4 @@
-const logger = require("./logger");
+const logger = require("zeph1rr-logger")(process.env.DEBUG_LEVEL, process.env.LOG_PATH);
 
 class botController
 {
@@ -12,7 +12,7 @@ class botController
             username: ctx.message.from.username,
             text: ctx.message.text
         }
-        logger(process.env.LOG_PATH, data, true)
+        logger(data)
     }
 
     Help(ctx) {

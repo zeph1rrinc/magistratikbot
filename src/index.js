@@ -29,7 +29,7 @@ const start = async () => {
         await bot.launch()
         logger({message: `${botInfo.name}:${botInfo.version} successfully started`})
     } catch (e) {
-        console.log(`ERROR: ${e}`)
+        logger({message: `${e}`})
     }
 
 }

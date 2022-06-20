@@ -1,14 +1,14 @@
-name: BuildAndPushDockerImage
+name: StageBuildAndPushDockerImage
 
 on:
   push:
-    branches: [ master ]
+    branches: [ stage ]
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ github.event.commits[0].message }}
+      TAG: ${{ github.event.commits[0].message }}-SNAPSHOT
     steps:
       - name: downcase REPO
         run: |

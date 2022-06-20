@@ -1,5 +1,4 @@
 require("dotenv").config()
-const axios = require('axios').default;
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 const doc = new GoogleSpreadsheet(process.env.DOC_SPREADSHEET)
 const {$authHost} = require('./http')

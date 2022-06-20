@@ -1,5 +1,13 @@
 const logger = require('./logger')
-const {getRows} = require('./http/UserAPI')
+const {default: axios} = require("axios");
+
+const $host = axios.create({
+    baseURL: process.env.API_URL
+})
+
+const getRows = async () => {
+    return $host.get('players')
+}
 
 class botController
 {

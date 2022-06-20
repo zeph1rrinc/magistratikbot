@@ -1,9 +1,5 @@
 const {default: axios} = require("axios");
 
-const $host = axios.create({
-    baseURL: process.env.API_URL
-})
-
 const $authHost = axios.create({
     baseURL: process.env.API_URL
 })

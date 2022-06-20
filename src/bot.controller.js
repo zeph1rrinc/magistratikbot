@@ -1,11 +1,8 @@
 const logger = require('./logger')
+const {getRows} = require('./http/UserAPI')
 
 class botController
 {
-    constructor(doc) {
-        this.doc = doc
-    }
-
     Log (ctx) {
         const data = {
             chatId: ctx.message.chat.id,
@@ -20,32 +17,24 @@ class botController
         this.Log(ctx)
     }
 
-    async GetRows() {
-        await this.doc.loadInfo()
-        const sheet = this.doc.sheetsByIndex[0]
-        return await sheet.getRows()
-    }
-
     async GetRating(ctx, nickname='') {
         try{
             this.Log(ctx)
+            const response = await getRows()
+            const rows = response.data.lines.sort((a, b) => (b.rating - a.rating))
             ctx.reply("Секундочку...")
             if (!nickname.length) {
-                const rows = await this.GetRows()
                 let answer = ''
                 rows.forEach(row => {
-                    if (row._rowNumber < 22) {
-                        const stringifyData = row._rawData
-                        answer += `${stringifyData[0]}. ${stringifyData[1]} - ${stringifyData[2]}\t\n`
+                    if (rows.indexOf(row) < 20) {
+                        answer += `${rows.indexOf(row) + 1}. ${row.nickname} - ${row.rating}\t\n`
                     }
                 })
                 ctx.reply(answer)
             } else {
-                const rows = await this.GetRows()
-                const row = rows.filter(row => row._rawData[1].toLowerCase() === nickname.toLowerCase())
-                if (row.length) {
-                    const data = row[0]._rawData
-                    ctx.reply(`${data[0]}. ${data[1]} - ${data[2]}`)
+                const row = rows.filter(row => row.nickname.toLowerCase() === nickname.toLowerCase())[0]
+                if (row) {
+                    ctx.reply(`${rows.indexOf(row)+1}. ${row.nickname} - ${row.rating}`)
                 } else {
                     ctx.reply('К сожалению, игрок не найден(')
                 }
@@ -69,4 +58,4 @@ class botController
     }
 }
 
-module.exports = botController
+module.exports = new botController()

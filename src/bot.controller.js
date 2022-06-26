@@ -1,8 +1,7 @@
 const logger = require('./logger')
 const {default: axios} = require("axios");
 
-// const borisId = 238703542
-const borisId = 1138552898
+const borisId = 238703542
 
 const $host = axios.create({
     baseURL: process.env.API_URL

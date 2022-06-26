@@ -1,6 +1,9 @@
 const logger = require('./logger')
 const {default: axios} = require("axios");
 
+// const borisId = 238703542
+const borisId = 1138552898
+
 const $host = axios.create({
     baseURL: process.env.API_URL
 })
@@ -61,7 +64,11 @@ class botController
             await this.GetRating(ctx, nickname)
         } else {
             this.Log(ctx)
-            ctx.reply('Я тебя не понимаю(')
+            if (ctx.message.chat.id === borisId) {
+                ctx.reply('Борис красный!')
+            } else {
+                ctx.reply('Я тебя не понимаю(')
+            }
         }
     }
 }

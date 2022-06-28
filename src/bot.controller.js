@@ -3,6 +3,10 @@ const {default: axios} = require("axios");
 
 const borisId = 238703542
 
+const getUsername = (ctx) => {
+    return ctx.message.from.username || ctx.message.from.first_name || 'Anonymous'
+}
+
 const $host = axios.create({
     baseURL: process.env.API_URL
 })
@@ -13,23 +17,44 @@ const getRows = async () => {
 
 class botController
 {
-    Log (ctx) {
+    async GetUser(ctx) {
+        return await $host.get(`botusers/${ctx.message.chat.id}`)
+    }
+
+    async Register(ctx) {
+        const botUser = await this.GetUser(ctx)
+        if (!botUser.data) {
+            await $host.post('botusers', {id: ctx.message.chat.id, name: getUsername(ctx)})
+            logger({message: "new user!", name: getUsername(ctx)})
+        }
+    }
+
+    async Log (ctx) {
+        const response = await this.GetUser(ctx)
+        const username = response.data
+        const name = username.name || getUsername(ctx)
         const data = {
             chatId: ctx.message.chat.id,
-            username: ctx.message.from.username,
+            username: name,
             text: ctx.message.text
         }
         logger(data)
     }
 
-    Help(ctx) {
+    async Help(ctx) {
         ctx.reply(process.env.HELP)
-        this.Log(ctx)
+        await this.Log(ctx)
+    }
+
+    async OnStart(ctx) {
+        ctx.reply(`Привет, ${ctx.message.from.first_name}!`)
+        await this.Register(ctx)
+        await this.Help(ctx)
     }
 
     async GetRating(ctx, nickname='') {
         try{
-            this.Log(ctx)
+            await this.Log(ctx)
             const response = await getRows()
             const rows = response.data.lines.sort((a, b) => (b.rating - a.rating))
             ctx.reply("Секундочку...")
@@ -57,12 +82,13 @@ class botController
 
     async OnMessage(ctx) {
         const message = ctx.message.text.trim()
+        await this.Register(ctx)
         if (message.toLowerCase().indexOf('рейтинг') === 0) {
             const messageArray = message.split(' ').filter(word => word.length > 0)
             const nickname = messageArray.slice(1, messageArray.length + 1).join(' ')
             await this.GetRating(ctx, nickname)
         } else {
-            this.Log(ctx)
+            await this.Log(ctx)
             if (ctx.message.chat.id === borisId) {
                 ctx.reply('Борис красный!')
             } else {

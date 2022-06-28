@@ -27,6 +27,6 @@ rows = GetRows().then(rows => rows.forEach(row => {
         series_count: stringifyData[3]
     }
     $authHost.post('players', line)
-        .then(response => console.log(response.data.nickname))
+        .then(response => console.log(`${response.data.nickname} - success`))
         .catch(response => console.log(`${line.nickname} - ${response.response.data.message}`))
 }))

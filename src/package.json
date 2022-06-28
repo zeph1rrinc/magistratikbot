@@ -1,12 +1,12 @@
 {
   "name": "magistratikbot",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index",
     "start": "node index",
-    "migtate": "node migrate.js"
+    "migrate": "node migrate.js"
   },
   "keywords": [],
   "author": "Zeph1rr",

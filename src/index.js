@@ -6,12 +6,11 @@ const controller = require('./bot.controller')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 
-bot.start((ctx) => {
-    ctx.reply(`Привет, ${ctx.message.from.first_name}!`)
-    controller.Help(ctx)
+bot.start(async (ctx) => {
+    await controller.OnStart(ctx)
 })
 
-bot.help((ctx) => controller.Help(ctx))
+bot.help(async (ctx) => await controller.Help(ctx))
 
 bot.on('message', async (ctx) => {
     await controller.OnMessage(ctx)

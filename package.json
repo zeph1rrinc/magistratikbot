@@ -1,0 +1,44 @@
+{
+  "name": "vk-magistratik-bot",
+  "version": "1.1.0",
+  "description": "Vk-bot for magistratik rating",
+  "main": "index.js",
+  "scripts": {
+    "lint:editorconfig": "editorconfig-checker",
+    "dev": "nodemon src/index",
+    "start": "node index",
+    "version": "echo $npm_package_version",
+    "docker:build": "docker build -t zeph1rrinc/magistratikbot:$npm_package_version .",
+    "docker:push": "docker push zeph1rrinc/magistratikbot:$npm_package_version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeph1rrinc/magistratikbot.git"
+  },
+  "keywords": [
+    "vk",
+    "bot",
+    "vk-bot",
+    "magistratik",
+    "mafia",
+    "incognito",
+    "mafia-incognito-moscow",
+    "magistratik2.0"
+  ],
+  "author": "Zeph1rr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeph1rrinc/magistratikbot/issues"
+  },
+  "homepage": "https://github.com/zeph1rrinc/magistratikbot#readme",
+  "dependencies": {
+    "google-spreadsheet": "^3.3.0",
+    "node-vk-bot-api": "^3.5.0",
+    "zeph1rr-logger": "^1.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "editorconfig-checker": "^4.0.2",
+    "nodemon": "^2.0.19"
+  }
+}

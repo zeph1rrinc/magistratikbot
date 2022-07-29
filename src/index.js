@@ -37,6 +37,17 @@ try {
         if (err) {
             Logger.Error({message: `${err}`});
         }
+        process.on("SIGTERM", () => {
+            Logger.Info("Received SIGTERM")
+            process.exit(0)
+        })
+        process.on("SIGINT", () => {
+            Logger.Info({message: "Received SIGINT"})
+            process.exit(0)
+        })
+        process.on("exit", (code) => {
+            Logger.Info({ message: `${botInfo.name}:${botInfo.version} exit with code: ${code}` })
+        })
     });
 } catch (e) {
     Logger.Error({message: `${e}`})

@@ -34,10 +34,10 @@
   "dependencies": {
     "google-spreadsheet": "^3.3.0",
     "node-vk-bot-api": "^3.5.0",
+    "dotenv": "^16.0.1",
     "zeph1rr-logger": "^1.0.1"
   },
   "devDependencies": {
-    "dotenv": "^16.0.1",
     "editorconfig-checker": "^4.0.2",
     "nodemon": "^2.0.19"
   }

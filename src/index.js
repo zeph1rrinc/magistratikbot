@@ -11,6 +11,18 @@ const VkBot = require('node-vk-bot-api');
 const {vkAPI, googleAPI} = require("./apis/");
 const {Logger} = require("./utils")
 
+process.on("SIGTERM", () => {
+    Logger.Info("Received SIGTERM")
+    process.exit(0)
+})
+process.on("SIGINT", () => {
+    Logger.Info({message: "Received SIGINT"})
+    process.exit(0)
+})
+process.on("exit", (code) => {
+    Logger.Info({ message: `${botInfo.name}:${botInfo.version} exit with code: ${code}` })
+})
+
 const bot = new VkBot(process.env.TOKEN);
 
 bot.command('Начать', async (ctx) => {
@@ -37,17 +49,6 @@ try {
         if (err) {
             Logger.Error({message: `${err}`});
         }
-        process.on("SIGTERM", () => {
-            Logger.Info("Received SIGTERM")
-            process.exit(0)
-        })
-        process.on("SIGINT", () => {
-            Logger.Info({message: "Received SIGINT"})
-            process.exit(0)
-        })
-        process.on("exit", (code) => {
-            Logger.Info({ message: `${botInfo.name}:${botInfo.version} exit with code: ${code}` })
-        })
     });
 } catch (e) {
     Logger.Error({message: `${e}`})

@@ -43,3 +43,11 @@
 - Refactoring logger
 - Change ci pipelines
 - Added linter
+
+# 1.1.1 - 1.1.4
+- Code refactoring
+- Catch process signals experiments
+
+# 1.1.5
+- Add new commands
+- Code refactoring (add controller)

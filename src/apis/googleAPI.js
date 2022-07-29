@@ -17,14 +17,14 @@ const getRows = async () => {
     return await sheet.getRows()
 }
 
-const getRating = async (ctx, nickname='') => {
+const getRating = async (nickname='') => {
     let result = ''
     const rows = await getRows()
     if (!nickname.length) {
         rows.forEach(row => {
             if (row._rowNumber < 22) {
-                const stringifyData = row._rawData
-                result += `${stringifyData[0]}. ${stringifyData[1]} - ${stringifyData[2]}\t\n`
+                const data = row._rawData
+                result += `${data[0]}. ${data[1]} - ${data[2]}\t\n`
             }
         })
         return result
@@ -39,5 +39,15 @@ const getRating = async (ctx, nickname='') => {
     }
 }
 
-module.exports = {getRating}
+const getPlayers = async () => {
+    let result = ''
+    const rows = await getRows()
+    rows.forEach(row => {
+        const data = row._rawData
+        result += `${data[1]} -- Серий: ${data[3]}\t\n`
+    })
+    return result
+}
+
+module.exports = {getRating, getPlayers}
 

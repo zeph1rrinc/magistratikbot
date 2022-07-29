@@ -1,47 +1,42 @@
-require("dotenv").config()
-const { Telegraf } = require('telegraf')
-const { GoogleSpreadsheet } = require('google-spreadsheet')
-const BotController = require('./bot.controller')
-const botInfo = require("./package.json")
-const logger = require('./logger')
-
-const bot = new Telegraf(process.env.BOT_TOKEN)
-const doc = new GoogleSpreadsheet(process.env.DOC_SPREADSHEET)
-const controller = new BotController(doc)
-
-bot.start((ctx) => {
-    ctx.reply(`Привет, ${ctx.message.from.first_name}!`)
-    controller.Help(ctx)
-})
-
-bot.help((ctx) => controller.Help(ctx))
-
-bot.on('message', async (ctx) => {
-    await controller.OnMessage(ctx)
-})
-
-const start = async () => {
-    try {
-        await doc.useServiceAccountAuth({
-            client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-            private_key: process.env.GOOGLE_PRIVATE_KEY,
-        });
-        await bot.launch()
-        logger({message: `${botInfo.name}:${botInfo.version} successfully started`})
-    } catch (e) {
-        logger({message: `${e}`})
-    }
-
+let botInfo = {}
+if (process.env.npm_command !== "start") {
+    require("dotenv").config({ path: '/home/zeph1rr/WebstormProjects/vk-magistratik-bot/src/.env' })
+    botInfo = require("../package.json")
+} else {
+    botInfo = require("./package.json")
 }
+const VkBot = require('node-vk-bot-api');
 
-start()
+const {vkAPI, googleAPI} = require("./apis/");
+const {Logger} = require("./utils")
 
-// Enable graceful stop
-process.once('SIGINT', () => {
-    logger({message: `${botInfo.name}:${botInfo.version} successfully stopped (SIGINT)`})
-    bot.stop('SIGINT')
+const bot = new VkBot(process.env.TOKEN);
+
+bot.command('Начать', async (ctx) => {
+    await Logger.Message(ctx)
+    const {first_name} = await vkAPI.get_user(ctx)
+    ctx.reply(`Привет, ${first_name}!`);
 })
-process.once('SIGTERM', () => {
-    logger({message: `${botInfo.name}:${botInfo.version} successfully stopped (SIGTERM)`})
-    bot.stop('SIGTERM')
+
+bot.command('Помощь', async (ctx) => {
+    await Logger.Message(ctx)
+    ctx.reply(process.env.HELP || "Не понимаю(")
 })
+
+bot.command('Рейтинг', async (ctx) => {
+    await Logger.Message(ctx)
+    const message = ctx.message.text.split(' ').filter(word => word.length > 0)
+    const nickname = message.slice(1, message.length + 1).join(' ')
+    await ctx.reply(await googleAPI.getRating(ctx, nickname))
+})
+
+try {
+    bot.startPolling((err) => {
+        Logger.Info({message: `${botInfo.name}:${botInfo.version} successfully started`})
+        if (err) {
+            Logger.Error({message: `${err}`});
+        }
+    });
+} catch (e) {
+    Logger.Error({message: `${e}`})
+}

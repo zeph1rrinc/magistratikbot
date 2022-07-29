@@ -1,9 +1,9 @@
 # MagistratikBot
 
-## Description 
+## Description
 
-- Version: 1.0.0
-- Stack: nodejs, telegraf
+- Version: 1.1.0
+- Stack: nodejs, node-vk-bot-api
 - Author: Zeph1rr <grianton535@gmail.com>
 
 ## Changelog
@@ -31,3 +31,15 @@
 ## 1.0.6
 
 - Code refactoring
+
+## 1.0.7 - 1.0.9
+
+- Add logger and refactoring
+
+## 1.1.0 
+
+- Migration bot from telegram to vk
+- Refactoring google api functions
+- Refactoring logger
+- Change ci pipelines
+- Added linter

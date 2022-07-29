@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  push:
+    branches-ignore:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  tests:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+
+    steps:
+      - name: Check-out repository
+        uses: actions/checkout@v2
+
+      - name: install Node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: lint
+        run: npm run lint:editorconfig

@@ -1,0 +1,35 @@
+name: BuildAndPushDockerImage
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-push:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+
+    steps:
+      - name: Check-out repository
+        uses: actions/checkout@v2
+
+      - name: install Node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build the Docker image
+        run: npm run docker:build
+
+      - name: Check images
+        run: docker images | grep ${{github.repository}}
+
+      - name: Login in docker
+        run: docker login -u ${{github.repository_owner}} -p ${{secrets.DOCKER_HUB_PASS}}
+
+      - name: Push into registry
+        run: npm run docker:push

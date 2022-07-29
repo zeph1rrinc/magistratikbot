@@ -3,6 +3,7 @@ if (process.env.npm_command !== "start") {
     require("dotenv").config({ path: '/home/zeph1rr/WebstormProjects/vk-magistratik-bot/src/.env' })
     botInfo = require("../package.json")
 } else {
+    require("dotenv").config()
     botInfo = require("./package.json")
 }
 const VkBot = require('node-vk-bot-api');

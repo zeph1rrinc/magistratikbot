@@ -1,6 +1,6 @@
 {
   "name": "vk-magistratik-bot",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Vk-bot for magistratik rating",
   "main": "index.js",
   "scripts": {

@@ -24,6 +24,10 @@ bot.command('Игроки', async ctx => await controller.players(ctx))
 
 bot.command('Власть', async ctx => await controller.head(ctx))
 
+bot.command('История', async ctx => await controller.history(ctx))
+
+bot.command(['Зефир красный', 'Люблю Зефира'], async ctx => controller.red(ctx))
+
 bot.on(async ctx => await controller.uncaught(ctx))
 
 try {

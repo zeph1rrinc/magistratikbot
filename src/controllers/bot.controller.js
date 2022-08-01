@@ -33,7 +33,17 @@ class BotController {
 
     async uncaught(ctx) {
         await Logger.Message(ctx)
-        await ctx.reply('Я теюя не понимаю, но Борис красный!')
+        await ctx.reply('К сожалению, такой команды не существуеет. Напиши "Помошь", чтобы вспомнить команды!')
+    }
+
+    async red(ctx) {
+        await Logger.Message(ctx)
+        await ctx.reply('Борис красный!')
+    }
+
+    async history(ctx) {
+        await Logger.Message(ctx)
+        await ctx.reply(process.env.HISTORY)
     }
 }
 

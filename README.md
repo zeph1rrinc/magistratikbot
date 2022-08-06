@@ -6,9 +6,9 @@
 - Stack: nodejs, node-vk-bot-api
 - Author: Zeph1rr <grianton535@gmail.com>
 
-## Changelog
-
 <hr>
+
+## Changelog
 
 ## 1.0.2
 
@@ -51,3 +51,8 @@
 # 1.1.5
 - Add new commands
 - Code refactoring (add controller)
+
+# 1.1.6
+- Added history command
+- Changed uncought command
+- Refactoring
